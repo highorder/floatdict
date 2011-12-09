@@ -62,9 +62,20 @@ class FloatDict(object):
         del self._keys[i]
         del self._values[i]
 
+    def __contains__(self, k):
+        try:
+            i = self._index(k)
+            return True
+        except KeyError:
+            return False
+
     def __iter__(self):
-        from itertools import izip
-        return izip(self._keys, self._values)
+        for k,v in zip(self._keys, self._values):
+            yield k,v
+
+    def __reversed__(self):
+        for k,v in zip(reversed(self._keys), reversed(self._values)):
+            yield k,v
 
     def __reduce__(self):
         return self.__class__, (list(self),)

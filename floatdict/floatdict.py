@@ -29,6 +29,12 @@ class FloatDict(object):
         self._keys = []
         self._values = []
 
+        try:
+            # Handle dictionaries.
+            iterable = iterable.iteritems()
+        except:
+            pass
+
         # @todo: This is inefficient, should use quick-sort algorithm first.
         for k, v in iterable:
             self[k] = v
